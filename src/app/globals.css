@@ -118,3 +118,13 @@ body {
   animation: rollUp 0.3s ease-in forwards;
   overflow: hidden;
 }
+
+@media (hover: none) and (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+
+  .cursor-custom {
+    display: none !important;
+  }
+}
