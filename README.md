@@ -1,6 +1,6 @@
 # Portfolio
 
-Welcome to my personal portfolio! This website showcases my projects, skills, and experiences in software development. This is version 1 of my portfolio, developed with Next.js and deployed to be accessible online.
+Welcome to my personal portfolio! This website showcases my projects, skills, and experiences in software development. This is version 1 of my portfolio, developed with Next.js and deployed to be accessible online at www.lilianperthuis.fr.
 
 ## 🚀 Features
 
