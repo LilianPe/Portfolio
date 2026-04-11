@@ -29,7 +29,7 @@ export function AboutPopup({ onClose, isClosing }: Props) {
         <div className="relative max-h-[50vh] overflow-hidden shadow-inner">
             <div className="px-1 py-2">
                 <h3 className="text-base font-semibold text-white mb-1">À propos</h3>
-                <div className="space-y-2 overflow-y-scroll max-h-[40vh] no-scrollbar px-1 py-2">
+                <div className="space-y-2 overflow-y-scroll minimal-scrollbar max-h-[40vh] no-scrollbar px-1 py-2">
                     <p className="text-sm text-white/80 leading-relaxed">
                         Développeur formé à l’école 42, j’ai suivi un parcours atypique basé sur l’apprentissage par projets en peer-learning, en autonomie complète. J’y ai développé une capacité à apprendre rapidement et à m’adapter à des problématiques variées, allant de la programmation bas niveau et des algorithmes jusqu’à des projets plus avancés, notamment en intelligence artificielle.
                         Sérieux et assidu dans mon parcours, j’aime aller au bout des sujets que j’aborde et construire des solutions propres et efficaces. Aujourd’hui, je m’épanouis dans le développement au sens large, avec l’envie de continuer à progresser et à relever de nouveaux défis techniques.

@@ -15,7 +15,7 @@ export default function usePageScroll(
 
     const handleWheel = (e: WheelEvent) => {
       const isMouse =  Math.abs(e.deltaY) >= 100 && Number.isInteger(e.deltaY);
-
+      
       if (!isMouse) return;
 
       const rawTarget = e.target as HTMLElement;
@@ -32,23 +32,28 @@ export default function usePageScroll(
     };
 
     const smoothScroll = (target: HTMLElement, deltaY: number) => {
+      if (currentTarget !== target) {
+        velocity = 0;
+        isAnimating = false;
+      }
       currentTarget = target;
 
-      const hasImages = target.querySelector("img") !== null || target.querySelector("video") !== null;
 
-      velocity += deltaY * (hasImages ? 1 : 0.07);
+      velocity += deltaY * 0.07;
 
       if (isAnimating) return;
-
+      
       isAnimating = true;
-
+      
       const friction = 0.95;
-
+      
       const step = () => {
+        
         if (!currentTarget) return;
 
+        const before = currentTarget.scrollTop;
         currentTarget.scrollTop += velocity;
-
+        const after = currentTarget.scrollTop;
         velocity *= friction;
 
         if (Math.abs(velocity) < 1) {
