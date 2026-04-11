@@ -9,6 +9,7 @@ import { projectsBySlug } from "@/data/projects";
 import usePageScroll from "@/hooks/usePageScroll";
 import { ProjectsSection } from "@/components/home/ProjectsSection";
 import { HomeFooter } from "@/components/home/HomeFooter";
+import { Analytics } from "@vercel/analytics/next"
 
 const FEATURED_PROJECTS = [
   projectsBySlug.transcendence,
@@ -89,8 +90,9 @@ export default function Home() {
             links={CONTACT_LINKS}
           />
         </div>
-      <HomeFooter github="LilianPe" email="lilianperthuis@gmail.com" />    
+      <HomeFooter github="LilianPe" email="lilianperthuis@gmail.com" />   
       </div>
+      <Analytics />
     </main>
   );
 }
