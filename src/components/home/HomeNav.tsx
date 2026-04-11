@@ -14,8 +14,8 @@ export function HomeNav({ name, tagline }: Props) {
 
   const handleClose = () => {
     setIsClosing(true);
+    setIsAboutOpen(false);
     setTimeout(() => {
-      setIsAboutOpen(false);
       setIsClosing(false);
     }, 300);
   };
@@ -30,6 +30,8 @@ export function HomeNav({ name, tagline }: Props) {
       )}
       <nav className="fixed top-0 left-5 right-5 lg:left-10 lg:right-10 z-50 flex items-center justify-between px-6 py-4 sm:py-6">
       <div className="flex items-center gap-2 relative">
+        <span className="text-sm font-medium text-white/80">
+          {name} · {tagline}
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -39,12 +41,10 @@ export function HomeNav({ name, tagline }: Props) {
               setIsAboutOpen(true);
             }
           }}
-          className="inline-flex h-9 w-9 items-center overflow-hidden justify-center rounded-xl border border-white/15 bg-white/[0.07] text-sm font-semibold transition-smooth hover:bg-white/[0.15] hover:border-white/40 hover:shadow-lg"
+          className="ml-4 inline-flex h-9 w-20 items-center overflow-hidden justify-center rounded-xl border border-white/15 bg-white/[0.07] text-sm font-semibold transition-smooth hover:bg-white/[0.15] hover:border-white/40 hover:shadow-lg"
         >
-          {isAboutOpen ? "✕" : "☰"}
+          {isAboutOpen ? "✕" : "À propos"}
         </button>
-        <span className="text-sm font-medium text-white/80">
-          {name} · {tagline}
         </span>
         {(isAboutOpen || isClosing) && <AboutPopup onClose={handleClose} isClosing={isClosing} />}
       </div>
