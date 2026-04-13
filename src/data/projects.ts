@@ -214,9 +214,9 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     ],
     links: [],
   },
-  javaBackendModule: {
-    id: "java-backend-module",
-    title: "Forseason (serveur Minecraft collaboratif)",
+  forseason: {
+    id: "forseason",
+    title: "Forseason",
     coverLabel: "Backend",
     coverSrcs: ["/projects/forseason/cover.mp4", "/projects/forseason/spoiler.mp4"],
     description: [

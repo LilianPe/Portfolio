@@ -12,15 +12,15 @@ import { HomeFooter } from "@/components/home/HomeFooter";
 import { Analytics } from "@vercel/analytics/next"
 
 const FEATURED_PROJECTS = [
+  projectsBySlug.forseason,
   projectsBySlug.transcendence,
-  projectsBySlug.tokenizer,
   projectsBySlug.learn2slither,
   projectsBySlug.ragPipeline,
   projectsBySlug.leaffliction,
   projectsBySlug.multilayerPerceptron,
+  projectsBySlug.tokenizer,
   projectsBySlug.webserv,
   projectsBySlug.inception,
-  projectsBySlug.javaBackendModule,
 ].map((p) => ({
   id: p.id,
   title: p.title,
