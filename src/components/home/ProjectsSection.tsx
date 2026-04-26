@@ -81,13 +81,13 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                   <div className="lg:w-[70%] relative">
                     <div ref={mediaScrollRef} key={selectedId} className="aspect-[7/4] lg:aspect-auto lg:h-full overflow-y-scroll minimal-scrollbar [--scrollbar-opacity:0.4] rounded-xl ">
                       {selectedProject.links ? (
-                        <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
+                        <div className="absolute top-5 right-5 flex flex-col items-end gap-2">
                           {selectedProject.links.map((link, i) => (
                             <img
-                              src={`https://cdn.simpleicons.org/${link.icon}/${link.color}`}
+                              src={link.src? link.src : `https://cdn.simpleicons.org/${link.icon}/${link.color? link.color : "020e21"}`}
                               alt={link.icon}
-                              width={44}
-                              height={44}
+                              width={54}
+                              height={54}
                               key={i}
                               onClick={() => window.open(link.href, "_blank")}
                               className="clickable rounded-full bg-white/10 p-1 z-10 transition hover:bg-white/20"

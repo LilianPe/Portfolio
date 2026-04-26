@@ -7,8 +7,9 @@ export type ProjectSection = {
 
 export type ProjectLink = {
   icon: string;
-  color: string;
   href: string;
+  color?: string;
+  src?: string;
 };
 
 export type ProjectDetailModel = {
@@ -239,7 +240,9 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
       { name: "Makefile", src: "/icons/gnu.png" },
       { name: "Linux", icon: "linux", color: "020e21" },
     ],
-    links: [],
+    links: [
+      {icon: "Forseason", src: "/projects/forseason/icon.png", href: "https://forseason.fr/"}
+    ],
   },
   chaostnt: {
     id: "chaostnt",
@@ -266,7 +269,9 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
       { name: "Git", icon: "git", color: "F05032" },
       { name: "Linux", icon: "linux", color: "020e21" },
     ],
-    links: [],
+    links: [
+      {icon: "Chaos", src: "/projects/chaostnt/icon.png", href: "https://chasseurchaos.fr/"}
+    ],
   },
 };
 
