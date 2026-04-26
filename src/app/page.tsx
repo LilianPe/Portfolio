@@ -13,6 +13,7 @@ import { Analytics } from "@vercel/analytics/next"
 
 const FEATURED_PROJECTS = [
   projectsBySlug.forseason,
+  projectsBySlug.chaostnt,
   projectsBySlug.transcendence,
   projectsBySlug.learn2slither,
   projectsBySlug.ragPipeline,
