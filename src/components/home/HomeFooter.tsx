@@ -9,9 +9,18 @@ export function HomeFooter({ github, email }: Props) {
   return (
     <footer className="relative flex justify-center w-full px-10 py-6 border-t border-white/10">
       <div className="flex flex-col items-center gap-6 lg:gap-60 lg:flex-row ">
-        <span className="text-sm text-white/40">
-          © 2026 Lilian Perthuis
-        </span>
+        <div className="flex gap-2">
+          <span className="text-sm text-white/40">
+            <p>© 2026 Lilian Perthuis</p>
+          </span>
+          <p className="text-sm text-white/40"> · </p>
+          <a
+              href="/mentions-legales"
+              className="text-sm text-white/40 hover:text-white/60 transition-colors"
+          >
+            Mentions légales
+          </a>
+        </div>
         <div className="flex items-center gap-6 text-sm text-white/60">
           <a
             href={`https://github.com/${github}`}
