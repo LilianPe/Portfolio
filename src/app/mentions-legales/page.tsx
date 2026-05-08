@@ -106,7 +106,7 @@ export default function MentionsLegales() {
           {/* Dernière mise à jour */}
           <div className="pt-8 border-t border-white/10">
             <p className="text-sm text-white/40">
-              Dernière mise à jour : {new Date().toLocaleDateString("fr-FR", { year: "numeric", month: "long", day: "numeric" })}
+              Dernière mise à jour : 8 mai 2026
             </p>
           </div>
         </div>
