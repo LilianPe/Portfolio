@@ -10,7 +10,7 @@ type Props = {
 export function AboutPopup({ onClose, isClosing }: Props) {
   return (
     <div 
-      className={`absolute top-16 left-5 z-40 ${isClosing ? "popup-close" : "popup-open"}`}
+      className={`absolute top-24 left-5 z-40 ${isClosing ? "popup-close" : "popup-open"}`}
       onClick={(e) => e.stopPropagation()}
     >
         <div 
