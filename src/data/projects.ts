@@ -23,6 +23,33 @@ export type ProjectDetailModel = {
 };
 
 export const projectsBySlug: Record<string, ProjectDetailModel> = {
+  volleytrack: {
+    id: "volleytrack",
+    title: "VolleyTrack",
+    coverLabel: "Fullstack",
+    coverSrcs: ["/projects/volleytrack/volleytrack-cover.png", "/projects/volleytrack/preview1.png", "/projects/volleytrack/preview2.png", "/projects/volleytrack/preview3.png", "/projects/volleytrack/preview4.png"],
+    description: [
+      "VolleyTrack est une application web full-stack de suivi de statistiques personnelles pour joueurs de volleyball, disponible en application web hébergée sur Vercel et en application desktop via un wrapper Electron.",
+      "Elle repose sur une architecture moderne séparant clairement le frontend React (TypeScript, Vite, Zustand) du backend Express (Node.js, TypeScript), connecté à une base de données PostgreSQL serverless hébergée sur Neon via Prisma ORM.",
+      "L'application propose une saisie en temps réel ou en post-match de l'ensemble des statistiques de jeu — attaque, service, réception, défense, block, passe — avec des boutons tactiles larges optimisés pour une utilisation mobile pendant les matchs.",
+      "Un diagramme SVG interactif du terrain permet d'indiquer le resultat de l'action (lieu de chute de la balle), permettant ensuite de visualiser les tendances du joueur à l'attaque, à la passe etc... sous forme de scatter plot dans l'onglet statistiques de chaque match.",
+      "Les performances sont analysées via des graphiques Recharts (radar, courbes d'évolution, comparaisons victoires/défaites, domicile/extérieur) et des métriques calculées par catégorie comme l'efficacité d'attaque, le pourcentage d'ace ou de réception positive etc...",
+      "L'application intègre également un système d'authentification JWT avec rotation de refresh token, un lecteur vidéo flottant draggable (YouTube, URL directe, fichier local), et un design system dark/light responsive."
+    ],
+    items: [
+      { name: "React", icon: "react", color: "61DAFB" },
+      { name: "TypeScript", icon: "typescript", color: "3178C6" },
+      { name: "Vite", icon: "vite", color: "646CFF" },
+      { name: "Tailwind", icon: "tailwindcss", color: "06B6D4" },
+      { name: "Node.js", icon: "nodedotjs", color: "339933" },
+      { name: "Prisma", icon: "prisma", color: "020e21" },
+      { name: "PostgreSQL", icon: "postgresql", color: "336791" },
+      { name: "Electron", icon: "electron", color: "47848F" },
+      { name: "Vercel", icon: "vercel", color: "020e21" },
+      { name: "Git", icon: "git", color: "F05032" },
+    ],
+    links: [],
+  },
   transcendence: {
     id: "transcendence",
     title: "TRANSCENDENCE",

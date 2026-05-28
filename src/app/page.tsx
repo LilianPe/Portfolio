@@ -12,6 +12,7 @@ import { HomeFooter } from "@/components/home/HomeFooter";
 import { Analytics } from "@vercel/analytics/next"
 
 const FEATURED_PROJECTS = [
+  projectsBySlug.volleytrack,
   projectsBySlug.transcendence,
   projectsBySlug.learn2slither,
   projectsBySlug.ragPipeline,
