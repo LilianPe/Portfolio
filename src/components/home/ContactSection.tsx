@@ -51,20 +51,11 @@ export const ContactSection = forwardRef<HTMLElement, Props>(
         setFeedback("Message envoyé ! Je te réponds dès que possible.");
         formRef.current.reset();
       } catch (error) {
-        const errorMessage =
-          error instanceof Error
-            ? error.message
-            : typeof error === "object"
-            ? JSON.stringify(error, Object.getOwnPropertyNames(error))
-            : String(error);
-
-        if (process.env.NODE_ENV !== "production") {
-          console.warn("EmailJS error", errorMessage, error);
-        }
+        console.error("EmailJS error:", error);
 
         setStatus("error");
         setFeedback(
-          `Impossible d'envoyer le message pour le moment. ${errorMessage}`
+          "Oups, le message n'est pas parti. Réessaie dans un instant, ou écris-moi directement par email."
         );
       }
     };
