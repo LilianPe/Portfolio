@@ -3,17 +3,19 @@
 import useCursor from "@/hooks/useCursor";
 
 export default function Cursor() {
-  const { x, y } = useCursor();
+  const { x, y, hovering } = useCursor();
 
   return (
     <>
-      {/* outer ring: trails the pointer with a short transition, giving it a slight lag/elastic follow */}
+      {/* outer ring: trails the pointer with a short transition for a slight lag/elastic follow.
+          Snapped instantly (no transition) while hovering a clickable target, so its own
+          diagonal catch-up motion never overlaps a button/icon's hover animation. */}
       <div
         className="fixed cursor-custom mix-blend-difference rounded-full border border-white/50 pointer-events-none w-[26px] h-[26px] -translate-x-[13px] -translate-y-[13px] z-[999]"
         style={{
           left: x,
           top: y,
-          transition: "left 80ms ease-out, top 80ms ease-out",
+          transition: hovering ? "none" : "left 80ms ease-out, top 80ms ease-out",
         }}
       />
       {/* inner dot: tracks the pointer 1:1, no lag, for precise targeting */}
