@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import { AboutReveal } from "@/components/home/AboutReveal";
 import { BackgroundLayers } from "@/components/home/BackgroundLayers";
 import { ContactSection } from "@/components/home/ContactSection";
 import { HeroHeader } from "@/components/home/HeroHeader";
@@ -63,6 +64,7 @@ export default function Home() {
       <div className="relative min-h-screen overflow-hidden px-6 py-10 sm:py-14 print:overflow-visible print:px-0 print:py-0 lg:px-0 lg:py-0">
         <BackgroundLayers />
         <SideNav />
+        <AboutReveal />
 
         <div
           id="snap"
