@@ -66,7 +66,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                           key={project.id}
                           type="button"
                           onClick={() => setSelectedId(project.id)}
-                          className={`w-full min-h-[9vh] clickable text-left border-b border-white/100 p-3 transition ${
+                          className={`w-full min-h-[9vh] clickable text-left border-b border-white/10 p-3 transition ${
                             isSelected
                               ? "text-white bg-gradient-to-r from-sky-500/5 to-sky-500/40 transition-left shadow-[-10px_0_15px_-5px_rgba(0,0,0,0.5),10px_0_15px_-5px_rgba(0,0,0,0.5)]"
                               : ""
