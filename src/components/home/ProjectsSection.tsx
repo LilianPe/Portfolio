@@ -32,7 +32,11 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
     const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
     const [selectedId, setSelectedId] = useState(projects[0]?.id ?? "");
     const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
+    const [projectIndicator, setProjectIndicator] = useState<{ top: number; height: number } | null>(
+      null
+    );
     const filterRefs = useRef<Partial<Record<FilterKey, HTMLButtonElement>>>({});
+    const projectRefs = useRef<Partial<Record<string, HTMLButtonElement>>>({});
 
     const filteredProjects =
       activeFilter === "all"
@@ -60,6 +64,11 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
         setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
       }
     }, [activeFilter]);
+
+    useLayoutEffect(() => {
+      const btn = projectRefs.current[selectedId];
+      setProjectIndicator(btn ? { top: btn.offsetTop, height: btn.offsetHeight } : null);
+    }, [selectedId, activeFilter]);
 
     useLayoutEffect(() => {
       if (mediaScrollRef.current) {
@@ -130,7 +139,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                   />
                 ) : null}
               </div>
-              <div className="max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:min-h-0 lg:max-h-none lg:flex-1">
+              <div className="relative max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:min-h-0 lg:max-h-none lg:flex-1">
                 {Object.entries(groupedProjects).map(([label, groupProjects]) => (
                   <div key={label}>
                     <p className="px-3 pt-3 pb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white/40">
@@ -141,12 +150,13 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                       return (
                         <button
                           key={project.id}
+                          ref={(el) => {
+                            projectRefs.current[project.id] = el ?? undefined;
+                          }}
                           type="button"
                           onClick={() => setSelectedId(project.id)}
                           className={`w-full min-h-[9vh] clickable text-left border-b border-white/10 p-3 transition ${
-                            isSelected
-                              ? "text-white bg-gradient-to-r from-sky-500/5 to-sky-500/40 transition-left"
-                              : ""
+                            isSelected ? "text-white bg-gradient-to-r from-sky-500/5 to-sky-500/40" : ""
                           }`}
                         >
                           <div className="text-base font-semibold text-white">{project.title}</div>
@@ -157,6 +167,18 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                 ))}
                 {filteredProjects.length === 0 ? (
                   <p className="p-3 text-sm text-white/50">Aucun projet dans cette catégorie.</p>
+                ) : null}
+                {projectIndicator ? (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute left-0 w-[3px] rounded-full bg-sky-400"
+                    style={{
+                      top: 0,
+                      height: projectIndicator.height,
+                      transform: `translateY(${projectIndicator.top}px)`,
+                      transition: "transform 320ms cubic-bezier(0.16, 1, 0.3, 1)",
+                    }}
+                  />
                 ) : null}
               </div>
             </div>
@@ -169,7 +191,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                       <div
                         ref={mediaScrollRef}
                         key={selectedId}
-                        className="aspect-[7/4] lg:aspect-auto lg:h-full overflow-y-scroll minimal-scrollbar [--scrollbar-opacity:0.4] rounded-xl"
+                        className="aspect-[7/4] lg:aspect-auto lg:h-full overflow-y-scroll minimal-scrollbar [--scrollbar-opacity:0.4] rounded-xl rise-in"
                       >
                         {selectedProject.links.length > 0 ? (
                           <div className="absolute top-5 right-5 flex flex-col items-end gap-2">
@@ -207,11 +229,17 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                     </div>
 
                     <div className="mt-4 lg:mt-0 flex flex-1 flex-col gap-4 pl-4">
-                      <h3 className="text-lg font-semibold">{selectedProject.title}</h3>
+                      <h3
+                        key={`title-${selectedId}`}
+                        className="text-lg font-semibold rise-in rise-in-delay-1"
+                      >
+                        {selectedProject.title}
+                      </h3>
 
                       <div
                         ref={descriptionScrollRef}
-                        className="text-base max-h-[60vh] leading-relaxed text-white/75 overflow-y-scroll minimal-scrollbar bg-gradient-to-t from-black/10 to-transparent p-4 rounded-lg"
+                        key={`desc-${selectedId}`}
+                        className="text-base max-h-[60vh] leading-relaxed text-white/75 overflow-y-scroll minimal-scrollbar bg-gradient-to-t from-black/10 to-transparent p-4 rounded-lg rise-in rise-in-delay-2"
                       >
                         {selectedProject.description.map((p, i) => (
                           <p key={i} className="pb-4">
@@ -222,7 +250,10 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                     </div>
                   </div>
 
-                  <div className="relative mt-8 ml-4 lg:ml-0 lg:w-[70%] overflow-hidden">
+                  <div
+                    key={selectedId}
+                    className="relative mt-8 ml-4 lg:ml-0 lg:w-[70%] overflow-hidden rise-in rise-in-delay-3"
+                  >
                     <div className="flex w-max pb-1 animate-scroll">
                       {[...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? [])].map((item, i) => (
                         <div key={i} className="shrink-0 p-4 pl-10">
