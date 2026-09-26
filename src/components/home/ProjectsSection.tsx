@@ -157,12 +157,13 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                         key={i}
                         className="shrink-0 p-4 pl-10"
                       >
-                        <img
-                          src={item.icon ? `https://cdn.simpleicons.org/${item.icon}/${item.color}` : item.src? item.src : undefined  }
-                          alt={item.name}
-                          width={44}
-                          height={44}
-                        />
+                        <div className="flex h-[44px] w-[44px] items-center justify-center">
+                          <img
+                            src={item.icon ? `https://cdn.simpleicons.org/${item.icon}/${item.color}` : item.src? item.src : undefined  }
+                            alt={item.name}
+                            className="max-h-[44px] max-w-[44px] object-contain"
+                          />
+                        </div>
                       </div>
                     ))}
                   </div>

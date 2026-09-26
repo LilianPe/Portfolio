@@ -23,6 +23,35 @@ export type ProjectDetailModel = {
 };
 
 export const projectsBySlug: Record<string, ProjectDetailModel> = {
+  intersektion: {
+    id: "intersektion",
+    title: "Intersektion",
+    coverLabel: "Fullstack",
+    coverSrcs: ["/projects/intersektion/cover.png", "/projects/intersektion/csrd1.png", "/projects/intersektion/csrd2.png", "/projects/intersektion/qse1.png", "/projects/intersektion/qse2.png", "/projects/intersektion/qse3.png"],
+    description: [
+      "Intersektion développe « la plateforme IA pour la conformité RSE & QSE », utilisée par des cabinets de conseil et d'audit pour gérer les missions de leurs entreprises clientes. J'y développe depuis un mois et demi deux applications : un outil de formulaires QSE que je conçois seul de bout en bout, et la partie CSRD de la plateforme d'audit.",
+      "La Gestion de formulaire QSE (Qualité Sécurité Environnement) est développée seul de bout en bout, avec sa propre base de données PostgreSQL (Drizzle ORM) — l'objectif étant qu'elle soit à terme intégrée à la nouvelle version de l'app QSE.",
+      "L'outil intègre un système de remplissage par étapes, avec une configuration fine de qui prend en charge chaque étape et qui peut la consulter, ainsi qu'un versionning complet des formulaires et des réponses. Une page de résultats permet d'analyser les réponses question par question à l'aide de graphiques, complétée par une synthèse générée par IA.",
+      "Au-delà de la déclaration elle-même, l'outil propose un tableau de suivi type Excel (filtres, vues, Kanban/calendrier) et un panneau de réglages, le tout testé (Vitest, Playwright) et déployé sur AWS via une infrastructure Terraform, avec intégration continue GitHub Actions.",
+      "Sur la plateforme d'audit (architecture Feature-Sliced Design), j'ai développé les pages de questionnaires CSRD (Corporate Sustainability Reporting Directive) à partir de maquettes, ainsi qu'une fonctionnalité de génération par IA de modules d'analyse (graphes, tableaux, etc...).",
+      "J'y ai aussi implémenté une fonctionnalité de recherche assistée par IA permettant d'enquêter sur les enjeux et concurrents d'un client cible via un LLM interne, ainsi qu'une page de relecture critique avec import de PDF et annotation, pensée pour être reliée aux autres modules de l'audit (constats, prise de rendez-vous).",
+      "Les deux applications partagent la même stack UI (shadcn/ui, Tailwind CSS) et les mêmes standards de qualité (TypeScript strict, tests automatisés, CI GitHub Actions), pour une expérience cohérente entre les deux outils du cabinet."
+    ],
+    items: [
+      { name: "Next.js", icon: "nextdotjs", color: "FFFFFF" },
+      { name: "React", icon: "react", color: "61DAFB" },
+      { name: "TypeScript", icon: "typescript", color: "3178C6" },
+      { name: "Tailwind", icon: "tailwindcss", color: "06B6D4" },
+      { name: "shadcn/ui", icon: "shadcnui", color: "FFFFFF" },
+      { name: "PostgreSQL", icon: "postgresql", color: "336791" },
+      { name: "Docker", icon: "docker", color: "2496ED" },
+      { name: "Docker Compose", src: "/icons/docker-compose.png" },
+      { name: "Terraform", icon: "terraform", color: "844FBA" },
+      { name: "AWS", src: "/icons/aws.png" },
+      { name: "GitHub Actions", icon: "githubactions", color: "2088FF" },
+    ],
+    links: [],
+  },
   volleytrack: {
     id: "volleytrack",
     title: "VolleyTrack",
@@ -92,7 +121,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     ],
     items: [
       { name: "Solidity", icon: "solidity", color: "020e21" },
-      { name: "Etherum", icon: "ethereum", color: "020e21" },
+      { name: "Ethereum", icon: "ethereum", color: "020e21" },
       { name: "Bnbchain", icon: "bnbchain", color: "d6e831" },
       { name: "Metamask", src: "/icons/metamask.png" },
       { name: "Git", icon: "git", color: "F05032" },
