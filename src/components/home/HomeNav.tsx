@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AboutPopup } from "./AboutPopup";
 
 type Props = {
@@ -19,6 +19,15 @@ export function HomeNav({ name, tagline }: Props) {
       setIsClosing(false);
     }, 300);
   };
+
+  useEffect(() => {
+    if (!isAboutOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") handleClose();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isAboutOpen]);
 
   return (
     <>
@@ -42,6 +51,8 @@ export function HomeNav({ name, tagline }: Props) {
               setIsAboutOpen(true);
             }
           }}
+          aria-haspopup="dialog"
+          aria-expanded={isAboutOpen}
           className="inline-flex h-9 min-w-[5.5rem] items-center overflow-hidden justify-center rounded-xl border border-white/15 bg-white/[0.07] px-4 text-sm font-semibold transition-smooth hover:bg-white/[0.15] hover:border-white/40 hover:shadow-lg"
         >
           {isAboutOpen ? "✕" : "À propos"}

@@ -67,7 +67,7 @@ export default function Home() {
   usePageScroll();
 
   return (
-    <main>
+    <div>
       <div className="relative min-h-screen overflow-hidden px-6 py-10 sm:py-14 print:overflow-visible print:px-0 print:py-0">
         <BackgroundLayers />
 
@@ -95,6 +95,6 @@ export default function Home() {
       <HomeFooter github="LilianPe" email="lilianperthuis@gmail.com" />
       </div>
       <Analytics />
-    </main>
+    </div>
   );
 }

@@ -83,15 +83,21 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                       {selectedProject.links ? (
                         <div className="absolute top-5 right-5 flex flex-col items-end gap-2">
                           {selectedProject.links.map((link, i) => (
-                            <img
-                              src={link.src? link.src : `https://cdn.simpleicons.org/${link.icon}/${link.color? link.color : "020e21"}`}
-                              alt={link.icon}
-                              width={54}
-                              height={54}
+                            <a
                               key={i}
-                              onClick={() => window.open(link.href, "_blank")}
-                              className="clickable rounded-full bg-white/10 p-1 z-10 transition hover:bg-white/20"
-                            />
+                              href={link.href}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Ouvrir le lien ${link.icon} du projet ${selectedProject.title}`}
+                              className="clickable flex items-center justify-center rounded-full bg-white/10 p-1 z-10 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                            >
+                              <img
+                                src={link.src? link.src : `https://cdn.simpleicons.org/${link.icon}/${link.color? link.color : "020e21"}`}
+                                alt=""
+                                width={54}
+                                height={54}
+                              />
+                            </a>
                           ))}
                         </div>
                       ) : null}
