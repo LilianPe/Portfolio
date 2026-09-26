@@ -63,9 +63,9 @@ export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
-  
-  usePageScroll([heroRef, projectsRef, contactRef]);
-  
+
+  usePageScroll();
+
   return (
     <main>
       <div className="relative min-h-screen overflow-hidden px-6 py-10 sm:py-14 print:overflow-visible print:px-0 print:py-0">
@@ -85,14 +85,14 @@ export default function Home() {
             title="Projets"
             projects={FEATURED_PROJECTS}
           />
-          
+
           <ContactSection
             ref={contactRef}
             intro="Un besoin ponctuel ou un projet ? Écris-moi et on en parle."
             links={CONTACT_LINKS}
           />
         </div>
-      <HomeFooter github="LilianPe" email="lilianperthuis@gmail.com" />   
+      <HomeFooter github="LilianPe" email="lilianperthuis@gmail.com" />
       </div>
       <Analytics />
     </main>
