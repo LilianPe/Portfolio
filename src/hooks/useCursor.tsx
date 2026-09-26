@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function useCursor() {
   const [cursor, setCursor] = useState({
@@ -7,11 +7,17 @@ export default function useCursor() {
     hovering: false,
   });
 
-  useEffect(() => {
-    let mouseX = 0;
-    let mouseY = 0;
+  // Raw mousemove events can fire many times per animation frame (especially on
+  // trackpads). Updating React state directly on every event causes jank/jitter
+  // once anything else is also animating (e.g. a hovered icon's own transition).
+  // Coalesce into at most one state update per frame via requestAnimationFrame.
+  const latest = useRef({ x: 0, y: 0 });
+  const frame = useRef<number | null>(null);
 
-    const updateHover = (x: number, y: number) => {
+  useEffect(() => {
+    const updateHover = () => {
+      frame.current = null;
+      const { x, y } = latest.current;
       const el = document.elementFromPoint(x, y) as HTMLElement;
 
       const hovering = !!(
@@ -26,14 +32,19 @@ export default function useCursor() {
       setCursor({ x, y, hovering });
     };
 
+    const schedule = () => {
+      if (frame.current === null) {
+        frame.current = requestAnimationFrame(updateHover);
+      }
+    };
+
     const move = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-      updateHover(mouseX, mouseY);
+      latest.current = { x: e.clientX, y: e.clientY };
+      schedule();
     };
 
     const scroll = () => {
-      updateHover(mouseX, mouseY);
+      schedule();
     };
 
     window.addEventListener("mousemove", move);
@@ -42,6 +53,7 @@ export default function useCursor() {
     return () => {
       window.removeEventListener("mousemove", move);
       window.removeEventListener("scroll", scroll);
+      if (frame.current !== null) cancelAnimationFrame(frame.current);
     };
   }, []);
 
