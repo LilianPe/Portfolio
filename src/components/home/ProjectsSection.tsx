@@ -24,16 +24,6 @@ function categoryOf(coverLabel: string): FilterKey {
   return "systemes"; // HTTP, Devops, Blockchain
 }
 
-function StatusDot({ status, size = "sm" }: { status: ProjectDetailModel["status"]; size?: "sm" | "md" }) {
-  const dim = size === "sm" ? "h-1.5 w-1.5" : "h-2 w-2";
-  return (
-    <span
-      aria-hidden="true"
-      className={`${dim} shrink-0 rounded-full ${status === "wip" ? "bg-sky-400" : "bg-emerald-300/60"}`}
-    />
-  );
-}
-
 export const ProjectsSection = forwardRef<HTMLElement, Props>(
   (
     { title, projects }: Props,
@@ -80,7 +70,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
         <div className="mx-auto flex w-full max-w-[1500px] flex-col px-1 pt-16 pb-10 sm:p-5 lg:h-full lg:justify-start lg:pt-24">
           <h2 className="ml-3 text-xl font-semibold">{title}</h2>
 
-          <div className="grid grid-cols-1 gap-4 lg:h-[calc(80vh_+_52px)] lg:grid-cols-[25%_75%]">
+          <div className="grid grid-cols-1 gap-4 lg:h-[calc(80vh_+_52px)] lg:grid-cols-[25%_75%] lg:grid-rows-1">
             <div className="relative lg:flex lg:h-full lg:flex-col">
               <div
                 role="group"
@@ -117,7 +107,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                   );
                 })}
               </div>
-              <div className="max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:h-full lg:max-h-none">
+              <div className="max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:min-h-0 lg:max-h-none lg:flex-1">
                 {Object.entries(groupedProjects).map(([label, groupProjects]) => (
                   <div key={label}>
                     <p className="px-3 pt-3 pb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white/40">
@@ -136,10 +126,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                               : ""
                           }`}
                         >
-                          <div className="flex items-center gap-2">
-                            <StatusDot status={project.status} />
-                            <div className="text-base font-semibold text-white">{project.title}</div>
-                          </div>
+                          <div className="text-base font-semibold text-white">{project.title}</div>
                         </button>
                       );
                     })}
@@ -194,14 +181,10 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                           </div>
                         )}
                       </div>
-                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     </div>
 
                     <div className="mt-4 lg:mt-0 flex flex-1 flex-col gap-4 pl-4">
-                      <div className="flex items-center gap-2">
-                        <StatusDot status={selectedProject.status} size="md" />
-                        <h3 className="text-lg font-semibold">{selectedProject.title}</h3>
-                      </div>
+                      <h3 className="text-lg font-semibold">{selectedProject.title}</h3>
 
                       <div
                         ref={descriptionScrollRef}
