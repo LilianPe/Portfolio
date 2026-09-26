@@ -12,10 +12,13 @@ export type ProjectLink = {
   src?: string;
 };
 
+export type ProjectStatus = "wip" | "done";
+
 export type ProjectDetailModel = {
   id: string;
   title: string;
   coverLabel: string;
+  status: ProjectStatus;
   coverSrcs: string[];
   description: string[];
   items: { name: string; icon?: string; color?: string, src?: string }[];
@@ -27,6 +30,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "intersektion",
     title: "Intersektion",
     coverLabel: "Fullstack",
+    status: "wip",
     coverSrcs: ["/projects/intersektion/cover.png", "/projects/intersektion/csrd1.png", "/projects/intersektion/csrd2.png", "/projects/intersektion/qse1.png", "/projects/intersektion/qse2.png", "/projects/intersektion/qse3.png"],
     description: [
       "Intersektion développe « la plateforme IA pour la conformité RSE & QSE », utilisée par des cabinets de conseil et d'audit pour gérer les missions de leurs entreprises clientes. J'y développe depuis un mois et demi deux applications : un outil de formulaires QSE que je conçois seul de bout en bout, et la partie CSRD de la plateforme d'audit.",
@@ -56,6 +60,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "volleytrack",
     title: "VolleyTrack",
     coverLabel: "Fullstack",
+    status: "done",
     coverSrcs: ["/projects/volleytrack/volleytrack-cover.png", "/projects/volleytrack/preview1.png", "/projects/volleytrack/preview2.png", "/projects/volleytrack/preview3.png", "/projects/volleytrack/preview4.png"],
     description: [
       "VolleyTrack est une application web full-stack de suivi de statistiques personnelles pour joueurs de volleyball, disponible en application web hébergée sur Vercel et en application desktop via un wrapper Electron.",
@@ -85,6 +90,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "transcendence",
     title: "TRANSCENDENCE",
     coverLabel: "Fullstack",
+    status: "done",
     coverSrcs: ["/projects/transcendence/cover.png", "/projects/transcendence/gameplay.mp4"],
     description: [
       "Transcendence est une application web full-stack développée dans le cadre du projet final du tronc commun de l’école 42.",
@@ -113,6 +119,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "tokenizer",
     title: "TOKENIZER",
     coverLabel: "Blockchain",
+    status: "done",
     coverSrcs: ["/projects/tokenizer/cover.png", "/projects/tokenizer/example.png"],
     description: [
       "Tokenizer est un projet blockchain visant à concevoir et déployer un smart contract permettant la création et la gestion de tokens sur une blockchain compatible EVM.",
@@ -133,6 +140,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "webserv",
     title: "WEBSERV",
     coverLabel: "HTTP",
+    status: "done",
     coverSrcs: ["/projects/webserv/cover.png", "/projects/webserv/screenshot.png"],
     description: [
       "Webserv est un serveur HTTP développé en C++ dans le cadre du cursus de l’école 42, visant à reproduire le fonctionnement d’un serveur web tel que Nginx.",
@@ -155,6 +163,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "learn2slither",
     title: "LEARN 2 SLITHER",
     coverLabel: "IA",
+    status: "done",
     coverSrcs: ["/projects/learn2slither/cover.png", "/projects/learn2slither/example.mp4"],
     description: [
       "Learn2Slither est un projet de machine learning developpé dans le cadre du cursus de l’école 42 visant à entraîner un agent autonome à jouer au jeu Snake en utilisant des techniques avancées de reinforcement learning.",
@@ -179,6 +188,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "rag-pipeline",
     title: "Pipeline RAG",
     coverLabel: "IA",
+    status: "done",
     coverSrcs: ["/projects/rag-pipeline/cover.png"],
     description: [
       "Ce projet IA, développé dans le cadre d’un beta-test à 42, implémente un système de génération de texte par LLM enrichi via la récupération d’information (RAG).",
@@ -202,6 +212,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "leaffliction",
     title: "Leaffliction",
     coverLabel: "IA",
+    status: "done",
     coverSrcs: ["/projects/leaffliction/cover.png", "/projects/leaffliction/example.png"],
     description: [
       "Leaffliction est un projet de vision par ordinateur visant à classifier automatiquement l’état de santé de feuilles de pommiers et de vignes.",
@@ -227,6 +238,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "multilayer-perceptron",
     title: "Multilayer Perceptron",
     coverLabel: "IA",
+    status: "done",
     coverSrcs: ["/projects/multilayer-perceptron/cover.png", "/projects/multilayer-perceptron/doc.png"],
     description: [
       "Multilayer Perceptron est un projet consistant à implémenter un réseau de neurones multicouche (MLP) from scratch en Python.",
@@ -253,6 +265,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "inception",
     title: "Inception",
     coverLabel: "Devops",
+    status: "done",
     coverSrcs: ["/projects/inception/cover.png"],
     description: [
       "Inception est un projet de system administration visant à concevoir et déployer une infrastructure complète basée sur Docker.",
@@ -277,6 +290,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "forseason",
     title: "Forseason",
     coverLabel: "Backend",
+    status: "wip",
     coverSrcs: ["/projects/forseason/cover.mp4", "/projects/forseason/spoiler.mp4"],
     description: [
       "Forseason est un serveur Minecraft multijoueur communautaire en cours de développement.",
@@ -306,6 +320,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     id: "chaostnt",
     title: "ChaosTNT",
     coverLabel: "Backend",
+    status: "done",
     coverSrcs: ["/projects/chaostnt/example.png"],
     description: [
       "ChasseurChaosTNT est un plugin Minecraft développé en Java, conçu pour proposer un mini-jeu interactif où le joueur doit remplir son arène de blocs tandis que les spectateurs peuvent influencer la partie en direct via des événements TikTok (follows, cadeaux, interactions).",

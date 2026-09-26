@@ -1,26 +1,59 @@
 import { ProjectDetailModel } from "@/data/projects";
-import { forwardRef, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { forwardRef, useLayoutEffect, useRef, useState } from "react";
 import { MediaItem } from "./MediaItem";
-
 
 type Props = {
   title: string;
   projects: ProjectDetailModel[];
 };
 
+type FilterKey = "all" | "fullstack" | "ia" | "systemes" | "jeu";
+
+const FILTERS: { key: FilterKey; label: string }[] = [
+  { key: "all", label: "Tous" },
+  { key: "fullstack", label: "Fullstack" },
+  { key: "ia", label: "IA" },
+  { key: "systemes", label: "Systèmes" },
+  { key: "jeu", label: "Jeu" },
+];
+
+function categoryOf(coverLabel: string): FilterKey {
+  if (coverLabel === "Fullstack") return "fullstack";
+  if (coverLabel === "IA") return "ia";
+  if (coverLabel === "Backend") return "jeu";
+  return "systemes"; // HTTP, Devops, Blockchain
+}
+
+function StatusDot({ status, size = "sm" }: { status: ProjectDetailModel["status"]; size?: "sm" | "md" }) {
+  const dim = size === "sm" ? "h-1.5 w-1.5" : "h-2 w-2";
+  return (
+    <span
+      aria-hidden="true"
+      className={`${dim} shrink-0 rounded-full ${status === "wip" ? "bg-sky-400" : "bg-emerald-300/60"}`}
+    />
+  );
+}
+
 export const ProjectsSection = forwardRef<HTMLElement, Props>(
   (
     { title, projects }: Props,
     ref: React.Ref<HTMLElement>
   ) => {
+    const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
     const [selectedId, setSelectedId] = useState(projects[0]?.id ?? "");
+
+    const filteredProjects =
+      activeFilter === "all"
+        ? projects
+        : projects.filter((p) => categoryOf(p.coverLabel) === activeFilter);
+
     const selectedProject =
-      projects.find((p) => p.id === selectedId) ?? projects[0] ?? null;
+      filteredProjects.find((p) => p.id === selectedId) ?? filteredProjects[0] ?? null;
 
     const mediaScrollRef = useRef<HTMLDivElement | null>(null);
     const descriptionScrollRef = useRef<HTMLDivElement | null>(null);
 
-    const groupedProjects = projects.reduce<Record<string, ProjectDetailModel[]>>(
+    const groupedProjects = filteredProjects.reduce<Record<string, ProjectDetailModel[]>>(
       (groups, project) => {
         const label = project.coverLabel || "Autres";
         (groups[label] ??= []).push(project);
@@ -42,18 +75,50 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
       <section
         id="projects"
         ref={ref}
-        className="scroll-mt-14 lg:scroll-mt-24 mt-20 w-full sm:p-5"
+        className="w-full snap-start snap-always lg:h-screen lg:overflow-hidden"
       >
+        <div className="mx-auto flex w-full max-w-[1500px] flex-col px-1 pt-16 pb-10 sm:p-5 lg:h-full lg:justify-center lg:pt-0">
+          <h2 className="ml-3 text-xl font-semibold">{title}</h2>
 
-        <div className="grid gap-4 grid-cols-1 lg:grid-cols-[25%_75%]">
-          <div>
-            <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <h2 className="text-xl font-semibold ml-3">{title}</h2>
-              </div>
-            </div>
-            <div className="relative">
-              <div className="max-h-[35vh] lg:max-h-[70vh] overflow-y-scroll minimal-scrollbar">
+          <div
+            role="group"
+            aria-label="Filtrer par catégorie"
+            className="mb-4 mt-3 ml-3 inline-flex w-fit gap-0.5 rounded-full border border-white/10 bg-white/5 p-1"
+          >
+            {FILTERS.map((filter) => {
+              const isActive = activeFilter === filter.key;
+              return (
+                <button
+                  key={filter.key}
+                  type="button"
+                  aria-pressed={isActive}
+                  onClick={() => {
+                    setActiveFilter(filter.key);
+                    const stillVisible = projects.some(
+                      (p) =>
+                        p.id === selectedId &&
+                        (filter.key === "all" || categoryOf(p.coverLabel) === filter.key)
+                    );
+                    if (!stillVisible) {
+                      const first = projects.find(
+                        (p) => filter.key === "all" || categoryOf(p.coverLabel) === filter.key
+                      );
+                      if (first) setSelectedId(first.id);
+                    }
+                  }}
+                  className={`clickable rounded-full px-3.5 py-1.5 font-sans text-xs font-medium transition ${
+                    isActive ? "bg-white/15 text-white" : "text-white/50 hover:text-white/80"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="grid grid-cols-1 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[25%_75%]">
+            <div className="relative lg:h-full lg:min-h-0">
+              <div className="max-h-[35vh] overflow-y-auto overscroll-contain minimal-scrollbar lg:h-full lg:max-h-none">
                 {Object.entries(groupedProjects).map(([label, groupProjects]) => (
                   <div key={label}>
                     <p className="px-3 pt-3 pb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white/40">
@@ -73,7 +138,8 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                           }`}
                         >
                           <div className="flex items-start justify-between gap-2">
-                            <div>
+                            <div className="flex items-center gap-2">
+                              <StatusDot status={project.status} />
                               <div className="text-base font-semibold text-white">{project.title}</div>
                             </div>
                             <span className="rounded-full bg-white/10 px-2 py-1 text-[0.65rem] text-white/70">
@@ -85,95 +151,101 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                     })}
                   </div>
                 ))}
+                {filteredProjects.length === 0 ? (
+                  <p className="p-3 text-sm text-white/50">Aucun projet dans cette catégorie.</p>
+                ) : null}
               </div>
             </div>
-          </div>
 
-          <div className="p-3 min-w-0 ">
-            {selectedProject ? (
-              <>
-                <div className="flex mt-2 lg:h-[60vh] mb-3 gap-3 flex-col lg:flex-row">
-                  <div className="lg:w-[70%] relative">
-                    <div ref={mediaScrollRef} key={selectedId} className="aspect-[7/4] lg:aspect-auto lg:h-full overflow-y-scroll minimal-scrollbar [--scrollbar-opacity:0.4] rounded-xl ">
-                      {selectedProject.links ? (
-                        <div className="absolute top-5 right-5 flex flex-col items-end gap-2">
-                          {selectedProject.links.map((link, i) => (
-                            <a
-                              key={i}
-                              href={link.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              aria-label={`Ouvrir le lien ${link.icon} du projet ${selectedProject.title}`}
-                              className="clickable flex items-center justify-center rounded-full bg-white/10 p-1 z-10 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
-                            >
-                              <img
-                                src={link.src? link.src : `https://cdn.simpleicons.org/${link.icon}/${link.color? link.color : "020e21"}`}
-                                alt=""
-                                width={54}
-                                height={54}
-                              />
-                            </a>
-                          ))}
-                        </div>
-                      ) : null}
-                      {selectedProject.coverSrcs ? (
-                        <div className="flex flex-col gap-3">
-                          {selectedProject.coverSrcs.map((src, i) => (
-                            <MediaItem key={i} src={src} title={selectedProject.title} />
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="flex h-full items-center justify-center text-xs text-white/50">
-                          Pas d’image
-                        </div>
-                      )}                    
+            <div className="flex min-w-0 flex-col gap-3 p-3 lg:h-full lg:min-h-0">
+              {selectedProject ? (
+                <>
+                  <div className="flex min-h-0 flex-1 flex-col gap-3 lg:flex-row">
+                    <div className="relative lg:w-[70%]">
+                      <div
+                        ref={mediaScrollRef}
+                        key={selectedId}
+                        className="aspect-[7/4] overflow-y-auto overscroll-contain minimal-scrollbar [--scrollbar-opacity:0.4] rounded-xl lg:aspect-auto lg:h-full"
+                      >
+                        {selectedProject.links.length > 0 ? (
+                          <div className="absolute top-5 right-5 flex flex-col items-end gap-2">
+                            {selectedProject.links.map((link, i) => (
+                              <a
+                                key={i}
+                                href={link.href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`Ouvrir le lien ${link.icon} du projet ${selectedProject.title}`}
+                                className="clickable flex items-center justify-center rounded-full bg-white/10 p-1 z-10 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+                              >
+                                <img
+                                  src={link.src ? link.src : `https://cdn.simpleicons.org/${link.icon}/${link.color ? link.color : "020e21"}`}
+                                  alt=""
+                                  width={54}
+                                  height={54}
+                                />
+                              </a>
+                            ))}
+                          </div>
+                        ) : null}
+                        {selectedProject.coverSrcs.length > 0 ? (
+                          <div className="flex flex-col gap-3">
+                            {selectedProject.coverSrcs.map((src, i) => (
+                              <MediaItem key={i} src={src} title={selectedProject.title} />
+                            ))}
+                          </div>
+                        ) : (
+                          <div className="flex h-full items-center justify-center text-xs text-white/50">
+                            Pas d&apos;image
+                          </div>
+                        )}
+                      </div>
+                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     </div>
-                  <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20  from-black/50 via-transparent to-transparent" /></div>
 
-                  <div className="mt-4 lg:mt-0 flex flex-1 flex-col gap-4 pl-4">
-                    <div className="flex items-center justify-between gap-2">
-                      <div>
-                        <p className="text-xs uppercase tracking-[0.18em] text-sky-300/80">
-                          Projet
-                        </p>
+                    <div className="mt-4 flex min-h-0 flex-1 flex-col gap-3 lg:mt-0 lg:pl-4">
+                      <div className="flex items-center gap-2">
+                        <StatusDot status={selectedProject.status} size="md" />
                         <h3 className="text-lg font-semibold">{selectedProject.title}</h3>
                       </div>
-                    </div>
 
-                    <div ref={descriptionScrollRef} className="text-base max-h-[60vh] leading-relaxed text-white/75 overflow-y-scroll minimal-scrollbar bg-gradient-to-t from-black/10 to-transparent p-4 rounded-lg ">
-                      {selectedProject.description.map((p, i) => (
-                        <p key={i} className="pb-4">
-                          {p}
-                        </p>
+                      <div
+                        ref={descriptionScrollRef}
+                        className="flex-1 overflow-y-auto overscroll-contain minimal-scrollbar text-base leading-relaxed text-white/75"
+                      >
+                        {selectedProject.description.map((p, i) => (
+                          <p key={i} className="pb-4">
+                            {p}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="max-h-24 shrink-0 overflow-y-auto overscroll-contain minimal-scrollbar lg:w-[70%]">
+                    <div className="flex flex-wrap gap-2 pr-1">
+                      {(selectedProject.items ?? []).map((item, i) => (
+                        <span
+                          key={i}
+                          className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1.5 pl-2 pr-3 font-sans text-xs text-white/75"
+                        >
+                          <img
+                            src={item.icon ? `https://cdn.simpleicons.org/${item.icon}/${item.color}` : item.src ? item.src : undefined}
+                            alt=""
+                            className="h-4 w-4 shrink-0 object-contain"
+                          />
+                          {item.name}
+                        </span>
                       ))}
                     </div>
                   </div>
+                </>
+              ) : (
+                <div className="flex h-full items-center justify-center text-white/60">
+                  Aucun projet sélectionné
                 </div>
-                <div className="relative mt-8 h-[20vh] ml-4 lg:ml-0 lg:w-[70%] overflow-hidden">
-                  <div className="flex w-max pb-1 animate-scroll">
-                    {
-                    ([...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? [])]).map((item, i) => (
-                      <div
-                        key={i}
-                        className="shrink-0 p-4 pl-10"
-                      >
-                        <div className="flex h-[44px] w-[44px] items-center justify-center">
-                          <img
-                            src={item.icon ? `https://cdn.simpleicons.org/${item.icon}/${item.color}` : item.src? item.src : undefined  }
-                            alt={item.name}
-                            className="max-h-[44px] max-w-[44px] object-contain"
-                          />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </>
-            ) : (
-              <div className="flex h-full items-center justify-center text-white/60">
-                Aucun projet sélectionné
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </section>

@@ -7,36 +7,32 @@ type Props = {
 
 export function HomeFooter({ github, email }: Props) {
   return (
-    <footer className="relative flex justify-center w-full px-10 py-6 border-t border-white/10">
-      <div className="flex flex-col items-center gap-6 lg:gap-60 lg:flex-row ">
-        <div className="flex gap-2">
-          <span className="text-sm text-white/60">
-            <p>© 2026 Lilian Perthuis</p>
-          </span>
-          <p className="text-sm text-white/60"> · </p>
-          <a
-              href="/mentions-legales"
-              className="text-sm text-white/60 hover:text-white/80 transition-colors"
-          >
+    <footer className="w-full px-6 py-3 text-xs text-white/60 sm:px-10">
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 sm:flex-row">
+        <p>
+          © 2026 Lilian Perthuis <span className="text-white/30">·</span>{" "}
+          <a href="/mentions-legales" className="clickable transition-colors hover:text-white/90">
             Mentions légales
           </a>
-        </div>
-        <div className="flex items-center gap-6 text-sm text-white/60">
+        </p>
+        <div className="flex items-center gap-4">
           <a
             href={`https://github.com/${github}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 transition-smooth hover:text-white"
+            aria-label={`GitHub : github.com/${github}`}
+            title="GitHub"
+            className="clickable text-white/60 transition-colors hover:text-white"
           >
             <GithubIcon />
-            {github}
           </a>
           <a
             href={`mailto:${email}`}
-            className="flex items-center gap-2 transition-smooth rounded-xl border border-white/20 bg-white/[0.06] px-3 py-1.5 font-medium text-white hover:border-sky-500/30 hover:bg-white/[0.09]"
+            aria-label={`Email : ${email}`}
+            title="Email"
+            className="clickable text-white/60 transition-colors hover:text-white"
           >
             <MailIcon />
-            {email}
           </a>
         </div>
       </div>
@@ -47,7 +43,7 @@ export function HomeFooter({ github, email }: Props) {
 function GithubIcon() {
   return (
     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
+      <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z" />
     </svg>
   );
 }
