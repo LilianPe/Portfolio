@@ -20,6 +20,15 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
     const mediaScrollRef = useRef<HTMLDivElement | null>(null);
     const descriptionScrollRef = useRef<HTMLDivElement | null>(null);
 
+    const groupedProjects = projects.reduce<Record<string, ProjectDetailModel[]>>(
+      (groups, project) => {
+        const label = project.coverLabel || "Autres";
+        (groups[label] ??= []).push(project);
+        return groups;
+      },
+      {}
+    );
+
     useLayoutEffect(() => {
       if (mediaScrollRef.current) {
         mediaScrollRef.current.scrollTo({ top: 0, behavior: "auto" });
@@ -45,31 +54,37 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
             </div>
             <div className="relative">
               <div className="max-h-[35vh] lg:max-h-[70vh] overflow-y-scroll minimal-scrollbar">
-                
-                {projects.map((project) => {
-                  const isSelected = selectedId === project.id;
-                  return (
-                    <button
-                      key={project.id}
-                      type="button"
-                      onClick={() => setSelectedId(project.id)}
-                      className={`w-full min-h-[9vh] clickable text-left border-b border-white/100 p-3 transition ${
-                        isSelected
-                          ? "text-white bg-gradient-to-r from-sky-500/5 to-sky-500/40 transition-left shadow-[-10px_0_15px_-5px_rgba(0,0,0,0.5),10px_0_15px_-5px_rgba(0,0,0,0.5)]"
-                          : ""
-                      }`}
-                    >
-                      <div className="flex items-start justify-between gap-2">
-                        <div>
-                          <div className="text-base font-semibold text-white">{project.title}</div>
-                        </div>
-                        <span className="rounded-full bg-white/10 px-2 py-1 text-[0.65rem] text-white/70">
-                          {project.coverLabel}
-                        </span>
-                      </div>
-                    </button>
-                );
-              })}
+                {Object.entries(groupedProjects).map(([label, groupProjects]) => (
+                  <div key={label}>
+                    <p className="px-3 pt-3 pb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white/40">
+                      {label}
+                    </p>
+                    {groupProjects.map((project) => {
+                      const isSelected = selectedId === project.id;
+                      return (
+                        <button
+                          key={project.id}
+                          type="button"
+                          onClick={() => setSelectedId(project.id)}
+                          className={`w-full min-h-[9vh] clickable text-left border-b border-white/100 p-3 transition ${
+                            isSelected
+                              ? "text-white bg-gradient-to-r from-sky-500/5 to-sky-500/40 transition-left shadow-[-10px_0_15px_-5px_rgba(0,0,0,0.5),10px_0_15px_-5px_rgba(0,0,0,0.5)]"
+                              : ""
+                          }`}
+                        >
+                          <div className="flex items-start justify-between gap-2">
+                            <div>
+                              <div className="text-base font-semibold text-white">{project.title}</div>
+                            </div>
+                            <span className="rounded-full bg-white/10 px-2 py-1 text-[0.65rem] text-white/70">
+                              {project.coverLabel}
+                            </span>
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
