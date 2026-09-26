@@ -8,7 +8,7 @@ type Props = {
 export function HomeFooter({ github, email }: Props) {
   return (
     <footer className="w-full px-6 py-3 text-xs text-white/60 sm:px-10">
-      <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-2 sm:flex-row">
+      <div className="mx-auto flex max-w-5xl flex-col items-center justify-center gap-2 sm:flex-row sm:gap-6">
         <p>
           © 2026 Lilian Perthuis <span className="text-white/30">·</span>{" "}
           <a href="/mentions-legales" className="clickable transition-colors hover:text-white/90">
@@ -22,7 +22,7 @@ export function HomeFooter({ github, email }: Props) {
             rel="noopener noreferrer"
             aria-label={`GitHub : github.com/${github}`}
             title="GitHub"
-            className="clickable text-white/60 transition-colors hover:text-white"
+            className="clickable -m-2 inline-flex rounded-full p-2 text-white/60 transition-colors hover:text-white"
           >
             <GithubIcon />
           </a>
@@ -30,7 +30,7 @@ export function HomeFooter({ github, email }: Props) {
             href={`mailto:${email}`}
             aria-label={`Email : ${email}`}
             title="Email"
-            className="clickable text-white/60 transition-colors hover:text-white"
+            className="clickable -m-2 inline-flex rounded-full p-2 text-white/60 transition-colors hover:text-white"
           >
             <MailIcon />
           </a>

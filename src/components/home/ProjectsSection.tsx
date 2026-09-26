@@ -116,9 +116,9 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
             })}
           </div>
 
-          <div className="grid grid-cols-1 gap-4 lg:min-h-0 lg:flex-1 lg:grid-cols-[25%_75%]">
-            <div className="relative lg:h-full lg:min-h-0">
-              <div className="max-h-[35vh] overflow-y-auto overscroll-contain minimal-scrollbar lg:h-full lg:max-h-none">
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[25%_75%]">
+            <div className="relative">
+              <div className="max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:max-h-[70vh]">
                 {Object.entries(groupedProjects).map(([label, groupProjects]) => (
                   <div key={label}>
                     <p className="px-3 pt-3 pb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white/40">
@@ -157,15 +157,15 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
               </div>
             </div>
 
-            <div className="flex min-w-0 flex-col gap-3 p-3 lg:h-full lg:min-h-0">
+            <div className="p-3 min-w-0">
               {selectedProject ? (
                 <>
-                  <div className="flex min-h-0 flex-1 flex-col gap-3 lg:flex-row">
+                  <div className="flex mt-2 lg:h-[60vh] mb-3 gap-3 flex-col lg:flex-row">
                     <div className="relative lg:w-[70%]">
                       <div
                         ref={mediaScrollRef}
                         key={selectedId}
-                        className="aspect-[7/4] overflow-y-auto overscroll-contain minimal-scrollbar [--scrollbar-opacity:0.4] rounded-xl lg:aspect-auto lg:h-full"
+                        className="aspect-[7/4] lg:aspect-auto lg:h-full overflow-y-scroll minimal-scrollbar [--scrollbar-opacity:0.4] rounded-xl"
                       >
                         {selectedProject.links.length > 0 ? (
                           <div className="absolute top-5 right-5 flex flex-col items-end gap-2">
@@ -203,7 +203,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     </div>
 
-                    <div className="mt-4 flex min-h-0 flex-1 flex-col gap-3 lg:mt-0 lg:pl-4">
+                    <div className="mt-4 lg:mt-0 flex flex-1 flex-col gap-4 pl-4">
                       <div className="flex items-center gap-2">
                         <StatusDot status={selectedProject.status} size="md" />
                         <h3 className="text-lg font-semibold">{selectedProject.title}</h3>
@@ -211,7 +211,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
 
                       <div
                         ref={descriptionScrollRef}
-                        className="flex-1 overflow-y-auto overscroll-contain minimal-scrollbar text-base leading-relaxed text-white/75"
+                        className="text-base max-h-[60vh] leading-relaxed text-white/75 overflow-y-scroll minimal-scrollbar bg-gradient-to-t from-black/10 to-transparent p-4 rounded-lg"
                       >
                         {selectedProject.description.map((p, i) => (
                           <p key={i} className="pb-4">
@@ -222,20 +222,18 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                     </div>
                   </div>
 
-                  <div className="max-h-24 shrink-0 overflow-y-auto overscroll-contain minimal-scrollbar lg:w-[70%]">
-                    <div className="flex flex-wrap gap-2 pr-1">
-                      {(selectedProject.items ?? []).map((item, i) => (
-                        <span
-                          key={i}
-                          className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 py-1.5 pl-2 pr-3 font-sans text-xs text-white/75"
-                        >
-                          <img
-                            src={item.icon ? `https://cdn.simpleicons.org/${item.icon}/${item.color}` : item.src ? item.src : undefined}
-                            alt=""
-                            className="h-4 w-4 shrink-0 object-contain"
-                          />
-                          {item.name}
-                        </span>
+                  <div className="relative mt-8 h-[20vh] ml-4 lg:ml-0 lg:w-[70%] overflow-hidden">
+                    <div className="flex w-max pb-1 animate-scroll">
+                      {[...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? [])].map((item, i) => (
+                        <div key={i} className="shrink-0 p-4 pl-10">
+                          <div className="flex h-[44px] w-[44px] items-center justify-center">
+                            <img
+                              src={item.icon ? `https://cdn.simpleicons.org/${item.icon}/${item.color}` : item.src ? item.src : undefined}
+                              alt={item.name}
+                              className="max-h-[44px] max-w-[44px] object-contain"
+                            />
+                          </div>
+                        </div>
                       ))}
                     </div>
                   </div>

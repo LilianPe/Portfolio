@@ -87,7 +87,7 @@ export const ContactSection = forwardRef<HTMLElement, Props>(
         ref={ref}
         className="relative w-full snap-start snap-always print:break-inside-avoid lg:h-screen lg:overflow-hidden"
       >
-        <div className="mx-auto flex w-full max-w-[560px] flex-col px-6 pt-16 pb-24 text-center sm:pt-20 lg:h-full lg:justify-center lg:pb-0">
+        <div className="mx-auto flex w-full max-w-[560px] flex-col px-6 pt-16 pb-24 text-center sm:pt-20 lg:h-full lg:justify-center lg:pt-0 lg:pb-0">
           <h2 className="text-xl font-semibold">Contact</h2>
           <p className="mx-auto mt-3 max-w-[42ch] text-lg text-white/70">{intro}</p>
 
@@ -102,7 +102,7 @@ export const ContactSection = forwardRef<HTMLElement, Props>(
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={`${link.label} : ${link.value}`}
                   title={link.label}
-                  className="clickable inline-flex h-9 w-9 items-center justify-center text-white/70 transition hover:-translate-y-0.5 hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
+                  className="clickable -m-2.5 inline-flex items-center justify-center rounded-full p-2.5 text-white/70 transition hover:-translate-y-0.5 hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
                 >
                   <Icon />
                 </a>

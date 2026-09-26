@@ -35,11 +35,20 @@ export function SideNav() {
         {SECTIONS.map((section) => {
           const isActive = section.id === active;
           return (
-            <li key={section.id}>
+            <li key={section.id} className="group relative flex items-center justify-end">
+              <span
+                aria-hidden="true"
+                className={`pointer-events-none absolute right-full mr-2.5 whitespace-nowrap text-xs font-sans opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-within:opacity-100 ${
+                  isActive ? "text-white" : "text-white/70"
+                }`}
+              >
+                {section.label}
+              </span>
               <a
                 href={`#${section.id}`}
+                aria-label={section.label}
                 aria-current={isActive ? "true" : undefined}
-                className="group flex flex-row-reverse items-center gap-2.5 rounded px-1 py-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
+                className="clickable relative -m-3 flex items-center justify-center rounded-full p-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
               >
                 <span
                   aria-hidden="true"
@@ -47,13 +56,6 @@ export function SideNav() {
                     isActive ? "scale-[1.4] bg-sky-400" : "bg-white/30"
                   }`}
                 />
-                <span
-                  className={`whitespace-nowrap text-xs font-sans opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 ${
-                    isActive ? "text-white" : "text-white/70"
-                  }`}
-                >
-                  {section.label}
-                </span>
               </a>
             </li>
           );

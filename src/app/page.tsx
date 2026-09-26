@@ -60,13 +60,13 @@ export default function Home() {
 
   return (
     <div>
-      <div className="relative min-h-screen overflow-hidden px-6 py-10 sm:py-14 print:overflow-visible print:px-0 print:py-0 lg:py-0">
+      <div className="relative min-h-screen overflow-hidden px-6 py-10 sm:py-14 print:overflow-visible print:px-0 print:py-0 lg:px-0 lg:py-0">
         <BackgroundLayers />
         <SideNav />
 
         <div
           id="snap"
-          className="relative ml-5 mr-5 lg:ml-10 lg:mr-10 lg:h-screen lg:overflow-y-auto lg:overscroll-contain lg:snap-y lg:snap-mandatory lg:scroll-smooth"
+          className="relative no-scrollbar px-5 lg:h-screen lg:overflow-y-auto lg:overscroll-contain lg:snap-y lg:snap-mandatory lg:scroll-smooth lg:px-10"
         >
           <HeroHeader
             ref={heroRef}

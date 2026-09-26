@@ -22,7 +22,7 @@ export const HeroHeader = forwardRef<HTMLElement, Props>(
           <p className="font-sans text-sm text-white/50">{tagline}</p>
           <a
             href="#projects"
-            className="mt-10 inline-flex items-center gap-2 px-1 py-1 font-sans text-sm text-white/70 transition-colors hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
+            className="mt-20 inline-flex items-center gap-2 px-1 py-1 font-sans text-sm text-white/70 transition-colors hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
           >
             Projets
             <span aria-hidden="true" className="motion-safe:animate-bounce">
