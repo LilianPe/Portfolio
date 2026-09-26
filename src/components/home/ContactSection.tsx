@@ -102,7 +102,7 @@ export const ContactSection = forwardRef<HTMLElement, Props>(
                   rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                   aria-label={`${link.label} : ${link.value}`}
                   title={link.label}
-                  className="clickable -m-2.5 inline-flex items-center justify-center rounded-full p-2.5 text-white/70 transition-colors hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
+                  className="clickable -m-2.5 inline-flex items-center justify-center rounded-full p-2.5 text-white/70 transition hover:-translate-y-0.5 hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
                 >
                   <Icon />
                 </a>
@@ -152,10 +152,15 @@ export const ContactSection = forwardRef<HTMLElement, Props>(
               <button
                 type="submit"
                 disabled={status === "sending" || !canSend}
-                className="clickable inline-flex items-center gap-2 font-sans text-sm font-semibold text-sky-300 transition disabled:cursor-not-allowed disabled:text-white/40"
+                className="clickable group inline-flex items-center gap-2 font-sans text-sm font-semibold text-sky-300 transition disabled:cursor-not-allowed disabled:text-white/40"
               >
                 {status === "sending" ? "Envoi…" : "Envoyer"}
-                <span aria-hidden="true">→</span>
+                <span
+                  aria-hidden="true"
+                  className="inline-block transition-transform duration-300 ease-out group-hover:translate-x-1 group-focus-visible:translate-x-1"
+                >
+                  →
+                </span>
               </button>
 
               {feedback ? (

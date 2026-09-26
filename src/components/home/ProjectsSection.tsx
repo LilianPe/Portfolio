@@ -31,6 +31,8 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
   ) => {
     const [activeFilter, setActiveFilter] = useState<FilterKey>("all");
     const [selectedId, setSelectedId] = useState(projects[0]?.id ?? "");
+    const [indicator, setIndicator] = useState<{ left: number; width: number } | null>(null);
+    const filterRefs = useRef<Partial<Record<FilterKey, HTMLButtonElement>>>({});
 
     const filteredProjects =
       activeFilter === "all"
@@ -53,6 +55,13 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
     );
 
     useLayoutEffect(() => {
+      const btn = filterRefs.current[activeFilter];
+      if (btn) {
+        setIndicator({ left: btn.offsetLeft, width: btn.offsetWidth });
+      }
+    }, [activeFilter]);
+
+    useLayoutEffect(() => {
       if (mediaScrollRef.current) {
         mediaScrollRef.current.scrollTo({ top: 0, behavior: "auto" });
       }
@@ -70,18 +79,21 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
         <div className="mx-auto flex w-full max-w-[1500px] flex-col px-1 pt-16 pb-10 sm:p-5 lg:h-full lg:justify-start lg:pt-24">
           <h2 className="ml-3 text-xl font-semibold">{title}</h2>
 
-          <div className="grid grid-cols-1 gap-4 lg:h-[calc(80vh_+_52px)] lg:grid-cols-[25%_75%] lg:grid-rows-1">
+          <div className="grid grid-cols-1 gap-4 lg:h-[calc(60vh_+_132px)] lg:grid-cols-[25%_75%] lg:grid-rows-1">
             <div className="relative lg:flex lg:h-full lg:flex-col">
               <div
                 role="group"
                 aria-label="Filtrer par catégorie"
-                className="mb-4 mt-3 ml-3 inline-flex w-fit shrink-0 gap-0.5 rounded-full border border-white/10 bg-white/5 p-1"
+                className="relative mb-5 mt-3 ml-3 inline-flex w-fit shrink-0 gap-5"
               >
                 {FILTERS.map((filter) => {
                   const isActive = activeFilter === filter.key;
                   return (
                     <button
                       key={filter.key}
+                      ref={(el) => {
+                        filterRefs.current[filter.key] = el ?? undefined;
+                      }}
                       type="button"
                       aria-pressed={isActive}
                       onClick={() => {
@@ -98,14 +110,25 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                           if (first) setSelectedId(first.id);
                         }
                       }}
-                      className={`clickable rounded-full px-3.5 py-1.5 font-sans text-xs font-medium transition ${
-                        isActive ? "bg-white/15 text-white" : "text-white/50 hover:text-white/80"
+                      className={`clickable pb-2 font-sans text-xs font-medium transition-colors ${
+                        isActive ? "text-white" : "text-white/50 hover:text-white/80"
                       }`}
                     >
                       {filter.label}
                     </button>
                   );
                 })}
+                {indicator ? (
+                  <span
+                    aria-hidden="true"
+                    className="pointer-events-none absolute bottom-0 h-[2px] rounded-full bg-sky-400"
+                    style={{
+                      left: indicator.left,
+                      width: indicator.width,
+                      transition: "left 300ms cubic-bezier(0.16, 1, 0.3, 1), width 300ms cubic-bezier(0.16, 1, 0.3, 1)",
+                    }}
+                  />
+                ) : null}
               </div>
               <div className="max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:min-h-0 lg:max-h-none lg:flex-1">
                 {Object.entries(groupedProjects).map(([label, groupProjects]) => (
@@ -199,7 +222,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                     </div>
                   </div>
 
-                  <div className="relative mt-8 h-[20vh] ml-4 lg:ml-0 lg:w-[70%] overflow-hidden">
+                  <div className="relative mt-8 ml-4 lg:ml-0 lg:w-[70%] overflow-hidden">
                     <div className="flex w-max pb-1 animate-scroll">
                       {[...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? []), ...(selectedProject.items ?? [])].map((item, i) => (
                         <div key={i} className="shrink-0 p-4 pl-10">
