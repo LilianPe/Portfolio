@@ -77,48 +77,47 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
         ref={ref}
         className="w-full snap-start snap-always lg:h-screen lg:overflow-hidden"
       >
-        <div className="mx-auto flex w-full max-w-[1500px] flex-col px-1 pt-16 pb-10 sm:p-5 lg:h-full lg:justify-center lg:pt-0">
+        <div className="mx-auto flex w-full max-w-[1500px] flex-col px-1 pt-16 pb-10 sm:p-5 lg:h-full lg:justify-start lg:pt-24">
           <h2 className="ml-3 text-xl font-semibold">{title}</h2>
 
-          <div
-            role="group"
-            aria-label="Filtrer par catégorie"
-            className="mb-4 mt-3 ml-3 inline-flex w-fit gap-0.5 rounded-full border border-white/10 bg-white/5 p-1"
-          >
-            {FILTERS.map((filter) => {
-              const isActive = activeFilter === filter.key;
-              return (
-                <button
-                  key={filter.key}
-                  type="button"
-                  aria-pressed={isActive}
-                  onClick={() => {
-                    setActiveFilter(filter.key);
-                    const stillVisible = projects.some(
-                      (p) =>
-                        p.id === selectedId &&
-                        (filter.key === "all" || categoryOf(p.coverLabel) === filter.key)
-                    );
-                    if (!stillVisible) {
-                      const first = projects.find(
-                        (p) => filter.key === "all" || categoryOf(p.coverLabel) === filter.key
-                      );
-                      if (first) setSelectedId(first.id);
-                    }
-                  }}
-                  className={`clickable rounded-full px-3.5 py-1.5 font-sans text-xs font-medium transition ${
-                    isActive ? "bg-white/15 text-white" : "text-white/50 hover:text-white/80"
-                  }`}
-                >
-                  {filter.label}
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 lg:grid-cols-[25%_75%]">
-            <div className="relative">
-              <div className="max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:max-h-[70vh]">
+          <div className="grid grid-cols-1 gap-4 lg:h-[calc(80vh_+_52px)] lg:grid-cols-[25%_75%]">
+            <div className="relative lg:flex lg:h-full lg:flex-col">
+              <div
+                role="group"
+                aria-label="Filtrer par catégorie"
+                className="mb-4 mt-3 ml-3 inline-flex w-fit shrink-0 gap-0.5 rounded-full border border-white/10 bg-white/5 p-1"
+              >
+                {FILTERS.map((filter) => {
+                  const isActive = activeFilter === filter.key;
+                  return (
+                    <button
+                      key={filter.key}
+                      type="button"
+                      aria-pressed={isActive}
+                      onClick={() => {
+                        setActiveFilter(filter.key);
+                        const stillVisible = projects.some(
+                          (p) =>
+                            p.id === selectedId &&
+                            (filter.key === "all" || categoryOf(p.coverLabel) === filter.key)
+                        );
+                        if (!stillVisible) {
+                          const first = projects.find(
+                            (p) => filter.key === "all" || categoryOf(p.coverLabel) === filter.key
+                          );
+                          if (first) setSelectedId(first.id);
+                        }
+                      }}
+                      className={`clickable rounded-full px-3.5 py-1.5 font-sans text-xs font-medium transition ${
+                        isActive ? "bg-white/15 text-white" : "text-white/50 hover:text-white/80"
+                      }`}
+                    >
+                      {filter.label}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="max-h-[35vh] overflow-y-scroll minimal-scrollbar lg:h-full lg:max-h-none">
                 {Object.entries(groupedProjects).map(([label, groupProjects]) => (
                   <div key={label}>
                     <p className="px-3 pt-3 pb-1 text-[0.65rem] font-semibold uppercase tracking-wider text-white/40">
@@ -133,18 +132,13 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
                           onClick={() => setSelectedId(project.id)}
                           className={`w-full min-h-[9vh] clickable text-left border-b border-white/10 p-3 transition ${
                             isSelected
-                              ? "text-white bg-gradient-to-r from-sky-500/5 to-sky-500/40 transition-left shadow-[-10px_0_15px_-5px_rgba(0,0,0,0.5),10px_0_15px_-5px_rgba(0,0,0,0.5)]"
+                              ? "text-white bg-gradient-to-r from-sky-500/5 to-sky-500/40 transition-left"
                               : ""
                           }`}
                         >
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex items-center gap-2">
-                              <StatusDot status={project.status} />
-                              <div className="text-base font-semibold text-white">{project.title}</div>
-                            </div>
-                            <span className="rounded-full bg-white/10 px-2 py-1 text-[0.65rem] text-white/70">
-                              {project.coverLabel}
-                            </span>
+                          <div className="flex items-center gap-2">
+                            <StatusDot status={project.status} />
+                            <div className="text-base font-semibold text-white">{project.title}</div>
                           </div>
                         </button>
                       );
