@@ -42,9 +42,15 @@ export function AboutReveal() {
         }}
       >
         <div className="min-h-0">
-          <div className="mb-2.5 border-t-2 border-sky-400/85 bg-[rgba(9,13,22,0.97)] px-6 py-5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.55)]">
-            <h3 className="mb-3 text-base font-semibold">À propos</h3>
-            <p className="text-sm leading-relaxed text-white/70">{BIO}</p>
+          <div className="mb-2.5 border border-white/10 bg-[rgba(23,30,50,0.94)] px-6 py-5 shadow-[0_16px_40px_-12px_rgba(0,0,0,0.55)]">
+            <h3 className="mb-3 text-xs uppercase tracking-[0.12em] text-white/50">
+              À propos
+            </h3>
+            <div className="max-h-[min(52vh,380px)] -mr-4 overflow-y-auto pr-4">
+              <p className="text-sm leading-[1.9] tracking-[0.015em] text-white/70">
+                {BIO}
+              </p>
+            </div>
           </div>
         </div>
       </div>
