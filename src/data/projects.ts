@@ -83,7 +83,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
       { name: "Git", icon: "git", color: "F05032" },
     ],
     links: [
-            {icon: "Volleytrack", src: "/projects/volleytrack/icon.svg", href: "https://volleytrack-three.vercel.app/"}
+            {icon: "Volleytrack", src: "/projects/volleytrack/icon.svg", href: "https://volleytrack.fr/"}
     ],
   },
   transcendence: {
