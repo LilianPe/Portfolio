@@ -61,7 +61,7 @@ export const projectsBySlug: Record<string, ProjectDetailModel> = {
     title: "VolleyTrack",
     coverLabel: "Fullstack",
     status: "done",
-    coverSrcs: ["/projects/volleytrack/volleytrack-cover.png", "/projects/volleytrack/preview1.png", "/projects/volleytrack/preview2.png", "/projects/volleytrack/preview3.png", "/projects/volleytrack/preview4.png"],
+    coverSrcs: ["/projects/volleytrack/volleytrack-cover.png", "/projects/volleytrack/previewResponsive.png", "/projects/volleytrack/preview1.png", "/projects/volleytrack/preview2.png", "/projects/volleytrack/preview3.png", "/projects/volleytrack/preview4.png", "/projects/volleytrack/preview5.png"],
     description: [
       "VolleyTrack est une application web full-stack de suivi de statistiques de volleyball, pensée à la fois pour les joueurs et pour les équipes. Conçue, développée et maintenue seul, elle est en production avec de vrais utilisateurs, sur le web (Vercel) et en version desktop via Electron.",
       "Elle repose sur une architecture moderne séparant clairement le frontend React (TypeScript, Vite, Zustand) du backend Express (Node.js, TypeScript), connecté à une base de données PostgreSQL serverless hébergée sur Neon via Prisma ORM.",
