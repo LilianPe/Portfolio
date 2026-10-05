@@ -7,7 +7,16 @@ const BIO =
 
 export function AboutReveal() {
   const [open, setOpen] = useState(false);
+  const [hasOpened, setHasOpened] = useState(true);
   const shellRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("about-seen") !== "1") setHasOpened(false);
+    } catch {
+      // localStorage indisponible (navigation privée...) — on laisse le signal actif
+    }
+  }, []);
 
   useEffect(() => {
     if (!open) return;
@@ -57,10 +66,33 @@ export function AboutReveal() {
 
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          setOpen((v) => {
+            const next = !v;
+            if (next) {
+              setHasOpened(true);
+              try {
+                localStorage.setItem("about-seen", "1");
+              } catch {
+                // localStorage indisponible — pas grave, le signal reviendra la prochaine visite
+              }
+            }
+            return next;
+          });
+        }}
         aria-expanded={open}
-        className="clickable self-start px-1 py-1.5 font-sans text-xs text-white/50 transition-colors hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
+        className="clickable group flex items-center gap-2 self-start px-1 py-1.5 font-sans text-xs text-white/60 transition-colors hover:text-sky-300 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sky-400"
       >
+        <span aria-hidden="true" className="relative flex h-[6px] w-[6px] shrink-0">
+          {!hasOpened ? (
+            <span className="about-ping absolute inline-flex h-full w-full rounded-full bg-sky-400" />
+          ) : null}
+          <span
+            className={`relative inline-flex h-[6px] w-[6px] rounded-full transition-colors ${
+              hasOpened ? "bg-white/30 group-hover:bg-sky-300" : "bg-sky-400"
+            }`}
+          />
+        </span>
         À propos
       </button>
     </div>
