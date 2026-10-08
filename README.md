@@ -21,24 +21,9 @@ Welcome to my personal portfolio! This website showcases my projects, skills, an
 
 - **Email**: lilianperthuis@gmail.com
 - **GitHub**: [github.com/LilianPe](https://github.com/LilianPe)
-- **LinkedIn**: [linkedin.com/in/lilian-perthuis](https://linkedin.com/in/lilian-perthuis) (to confirm)
+- **LinkedIn**: [linkedin.com/in/lilian-perthuis]([https://linkedin.com/in/lilian-perthuis](https://www.linkedin.com/in/lilian-perthuis-14bb562a2/))
 
 Feel free to contact me for any questions or opportunities!
 
-## 📦 Installation and Usage
-
-### Prerequisites
-
-- Node.js (version 18 or higher)
-- npm or yarn
-
-### Build for production
-
-```bash
-npm run build
-npm start
-```
-
----
 
 Developed with ❤️ by Lilian Perthuis
