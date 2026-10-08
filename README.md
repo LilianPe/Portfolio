@@ -1,29 +1,43 @@
 # Portfolio
 
-Welcome to my personal portfolio! This website showcases my projects, skills, and experiences in software development. This is version 1 of my portfolio, developed with Next.js and deployed to be accessible online at www.lilianperthuis.fr.
+My personal portfolio, live at **[lilianperthuis.fr](https://www.lilianperthuis.fr)**.
 
-## 🚀 Features
+A single-page site presenting who I am, the projects I've built (web apps, AI, DevOps, 42 school projects) and a way to get in touch.
 
-- **Interactive homepage**: Animated header, smooth navigation with custom cursor.
-- **About popup**: Personal presentation, skills, and background.
-- **Projects section**: Gallery of completed projects, with technical details and links to GitHub repositories.
-- **Contact section**: Integrated contact form with EmailJS, links to social networks.
-- **Responsive design**: Optimized for desktop and mobile with Tailwind CSS.
+## Features
 
-## 🛠️ Technologies Used
+- **Snap-scrolling layout** with a side navigation that follows the active section
+- **Projects gallery** with image/video carousels, tech stack and links for each project
+- **About panel** with a short presentation and background
+- **Contact form** sending emails through EmailJS
+- **Custom cursor**
+- **Responsive** across desktop and mobile
+- **Privacy-friendly analytics** with Vercel Analytics, plus a legal notice page
 
-- **Frontend**: Next.js, React, TypeScript
-- **Styling**: Tailwind CSS
-- **Contact**: EmailJS
-- **Tools**: ESLint, TypeScript
+## Tech stack
 
-## 📞 Contact
+- [Next.js](https://nextjs.org) (App Router) · React · TypeScript
+- Tailwind CSS
+- EmailJS · Vercel Analytics
+- Deployed on Vercel
 
-- **Email**: lilianperthuis@gmail.com
-- **GitHub**: [github.com/LilianPe](https://github.com/LilianPe)
-- **LinkedIn**: [linkedin.com/in/lilian-perthuis]([https://linkedin.com/in/lilian-perthuis](https://www.linkedin.com/in/lilian-perthuis-14bb562a2/))
+## Run locally
 
-Feel free to contact me for any questions or opportunities!
+```bash
+npm install
+npm run dev
+```
 
+The contact form needs EmailJS credentials in a `.env.local` file:
 
-Developed with ❤️ by Lilian Perthuis
+```bash
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=...
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=...
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=...
+```
+
+## Contact
+
+- Website: [lilianperthuis.fr](https://www.lilianperthuis.fr)
+- LinkedIn: [Lilian Perthuis](https://www.linkedin.com/in/lilian-perthuis-14bb562a2/)
+- Email: lilianperthuis@gmail.com
