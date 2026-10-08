@@ -20,3 +20,13 @@ pnpm-debug.log*
 
 # env
 .env*
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local tooling
+.claude/
+.impeccable/
+graphify-out/
+docs/superpowers/
