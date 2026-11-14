@@ -9,7 +9,7 @@ type Props = {
 export const HeroHeader = forwardRef<HTMLElement, Props>(
   ({ title, subtitle, tagline }: Props, ref: React.Ref<HTMLElement>) => {
     return (
-      <section id="hero" ref={ref} className="h-screen snap-start snap-always">
+      <section id="hero" ref={ref} className="h-screen">
         <header className="h-screen flex items-center justify-center text-center">
 
           <div className="space-y-3 sm:space-y-4">
