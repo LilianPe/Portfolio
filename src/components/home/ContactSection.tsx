@@ -85,7 +85,7 @@ export const ContactSection = forwardRef<HTMLElement, Props>(
       <section
         id="contact"
         ref={ref}
-        className="relative w-full snap-start snap-always print:break-inside-avoid lg:h-screen lg:overflow-hidden"
+        className="relative w-full print:break-inside-avoid lg:h-screen lg:overflow-hidden"
       >
         <div className="mx-auto flex w-full max-w-[560px] flex-col px-6 pt-16 pb-24 text-center sm:pt-20 lg:h-full lg:justify-center lg:pt-0 lg:pb-0">
           <h2 className="text-xl font-semibold">Contact</h2>

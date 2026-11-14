@@ -83,7 +83,7 @@ export const ProjectsSection = forwardRef<HTMLElement, Props>(
       <section
         id="projects"
         ref={ref}
-        className="w-full snap-start snap-always lg:h-screen lg:overflow-hidden"
+        className="w-full lg:h-screen lg:overflow-hidden"
       >
         <div className="mx-auto flex w-full max-w-[1500px] flex-col px-1 pt-16 pb-10 sm:p-5 lg:h-full lg:justify-start lg:pt-24">
           <h2 className="ml-3 text-xl font-semibold">{title}</h2>

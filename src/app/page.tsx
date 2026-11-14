@@ -9,6 +9,7 @@ import { SideNav } from "@/components/home/SideNav";
 import { projectsBySlug } from "@/data/projects";
 import { ProjectsSection } from "@/components/home/ProjectsSection";
 import { Analytics } from "@vercel/analytics/next"
+import { useSectionPager } from "@/hooks/useSectionPager";
 
 const FEATURED_PROJECTS = [
   projectsBySlug.intersektion,
@@ -58,6 +59,7 @@ export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const projectsRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
+  useSectionPager("snap");
 
   return (
     <div>
@@ -68,7 +70,7 @@ export default function Home() {
 
         <div
           id="snap"
-          className="relative no-scrollbar px-5 lg:h-screen lg:overflow-y-auto lg:overscroll-contain lg:snap-y lg:snap-mandatory lg:scroll-smooth lg:px-10"
+          className="relative no-scrollbar px-5 lg:h-screen lg:overflow-y-auto lg:overscroll-contain lg:px-10"
         >
           <HeroHeader
             ref={heroRef}
